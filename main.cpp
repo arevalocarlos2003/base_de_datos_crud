@@ -2,6 +2,7 @@
 #include <iostream>
 #include <iomanip>
 #include <unistd.h>
+#include <string.h>
 
 using namespace std;
 
@@ -20,6 +21,26 @@ int main(){
 
 void menu(){
     int option;
+    system("clear");
+    cout << endl;
+    string ascii = "\t-@*:                                    \n"
+                   "\t=@@@%=                                  \n"
+                   "\t=@@@@@@+.                               \n"
+                   "\t:%@@@@@@@#-                             \n"
+                   "\t  -#@@@@@@@%=.                          \n"
+                   "\t    .+@@@@@@@@*:                        \n"
+                   "\t       =#@@@@@@@#-                      \n"
+                   "\t         :*@@@@@@@@*.                   \n"
+                   "\t         :*@@@@@@@@*.                   \n"
+                   "\t       =#@@@@@@@#-                      \n"
+                   "\t    .+@@@@@@@@*:                        \n"
+                   "\t  -#@@@@@@@%=.                          \n"
+                   "\t:%@@@@@@@#-                             \n"
+                   "\t=@@@@@@+.           +@@@@@@@@@@@@@@@@@@-\n"
+                   "\t=@@@%=              *@@@@@@@@@@@@@@@@@@=\n"
+                   "\t-@*:                +@@@@@@@@@@@@@@@@@@-\n";
+    cout << ascii << endl << endl;
+
     cout << endl << "Choose an option: " << setw(20) << "|| [1] Insert   " 
                                          << setw(20) << "|| [2] Read     " 
                                          << setw(20) << "|| [3] Delete   " 
@@ -43,7 +64,7 @@ void menu(){
             system("clear");
             menu();
             break;
-        default:
+        case 5:
             cout << "Closing program..." << endl;
             break;
     }
