@@ -1,6 +1,7 @@
 #include <sqlite3.h>
 #include <iostream>
 #include <iomanip>
+#include <unistd.h>
 
 using namespace std;
 
@@ -19,10 +20,10 @@ int main(){
 
 void menu(){
     int option;
-    cout << endl << "Choose an option: " << setw(20) << "|| [1] Insert   ||" 
-                                         << setw(20) << "|| [2] Read     ||" 
-                                         << setw(20) << "|| [3] Delete   ||" 
-                                         << setw(20) << "|| [4] ClearScr ||"
+    cout << endl << "Choose an option: " << setw(20) << "|| [1] Insert   " 
+                                         << setw(20) << "|| [2] Read     " 
+                                         << setw(20) << "|| [3] Delete   " 
+                                         << setw(20) << "|| [4] ClearScr "
                                          << setw(20) << "|| [5] Exit     ||" << endl;
     cin >> option;
     switch (option){
@@ -97,15 +98,28 @@ int read(){
         cerr << "Error al intentar realizar la operacion " << sqlite3_errmsg << endl;
         return 1;
     }
-
+    cout << left << "|" << setw(40) << "EMAIL"
+                 << "|" << setw(40) << "NAME"
+                 << "|" << setw(40) << "PASS"
+                 << endl;
+    for (int i = 0; i < 120; i++){
+        cout << "-";
+    }
+    cout << endl;
     while(sqlite3_step(stmt) == SQLITE_ROW){
         const char* email = (const char*) sqlite3_column_text(stmt, 0);
         const char* name = (const char*) sqlite3_column_text(stmt, 1);
         const char* pass = (const char*) sqlite3_column_text(stmt, 2);
         
-        cout << left << "||" << setw(40) << email << "||" << setw(40) << name << "||" << setw(40) << pass << endl;
+        cout << left << "|" << setw(40) << email << "|" << setw(40) << name << "|" << setw(40) << pass << endl;
+        sleep(1);
     }
-    menu(); 
+    char option_;
+    cout << "Desea volver al menu?: " <<endl;
+    cin >> option_;
+    if (option_ == 'S' || option_ == 's'){
+        menu();
+    }
     sqlite3_finalize(stmt);
     sqlite3_close(db);
     return 0;
@@ -132,6 +146,5 @@ int del(){
     rc = sqlite3_exec(db, Delete.c_str(), NULL, NULL, NULL );
     //system("clear");
     read();
-    menu();
     return 0;
 }
